@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>0829</title>
+  <script src="../../static/js/jquery-3.5.1.min.js"></script>
+  <link href="try0829.css " rel="stylesheet">
+  <script LANGUAGE="JavaScript">
+    // 自動更新
+    // setTimeout("location.reload()", 1000 * 2);
+
+    function butEvent() {
+      // alert('hi');
+      var mapElm = new Map();
+      var arrElm = new Array({}, {},
+        {}, {},
+        {}, {});
+
+      mapElm.set("key1", "value1");
+      mapElm.set("key2", "value2");
+      mapElm.set("key3", "value3");
+      mapElm.set("key4", "value4");
+      mapElm.set("key5", "value5");
+
+      console.log(mapElm.size);
+      console.log(mapElm.has("key1"));
+      console.log(mapElm.has("value2"));
+
+      // Mapへの追加順に要素を取り出せます。
+      var mapSize = mapElm.size;
+      var time = 0;
+      mapElm.forEach(function (value, key) {
+        console.log(key + "," + value);
+        var keyName = 'KEY_' + key;
+        arrElm[time] = { keyName: key, 'value': value };
+        arrElm[time][keyName] = { keyName: key, 'value': value };
+        arrElm[time][keyName + '_' + time] = { keyName: key, 'value': value };
+        console.log("arrElm", arrElm);
+        time++
+      });
+
+      // keys()は、全ての要素のキーを追加順に並べたIteratorオブジェクトを返します。
+      var arrI = 0;
+      for (var key of mapElm.keys()) {
+        console.log("keys():", key)
+        arrElm[arrI] = { i: arrI, 'key': key, 'value': mapElm.get(key) };
+        console.log("arr[arrI]['arr' + key]", arrElm[arrI]['key']);
+        arrI++;
+      }
+      console.log("arrElm[]:", arrElm);
+      console.log("arrElm[4].key:", arrElm[4].key == null ? "NULL" : arrElm[4].key);
+      console.log("arrElm[5].key:", arrElm[5].key == null ? "NULL" : arrElm[5].key);
+
+      // values()は、全ての要素の値を追加順に並べたIteratorオブジェクトを返します。
+      for (var value of mapElm.values()) {
+        console.log("values():", value)
+
+      }
+      // entries()は、全ての要素を追加順に並べたIteratorオブジェクトを返します。
+      var entries = mapElm.entries();
+      var mapToArr = [];
+      for (var entry of mapElm.entries()) {
+        console.log("entries()", entry);   // entries() (2) ["key2", "value2"]
+        mapToArr.push(entry);
+        console.log("mapToArr", mapToArr);   // entries() (2) ["key2", "value2"]
+      }
+
+      onclickEvent(arrElm);
+
+      console.log("END");
+
+    }
+
+    function onclickEvent(arr) {
+      alert("onclickEvent")
+      var showTd = document.getElementsByName('showTd');
+      for (var i = 0; i < showTd.length; i++) {
+
+        // alert(showTd[i].innerText)
+        showTd[i].innerText = arr[i]['key'] != undefined ? arr[i]['key'] : "NUll";
+      }
+    }
+
+    function butEvent2() {
+
+      var arrElm1 = new Array({}, {});
+      var arrElm2 = new Array({}, {});
+
+      // arrElm1.push({id:1,name:'one'});
+      arrElm1[0]["key"] = {id:1,name:'one'};
+      // arrElm1.push({id:2,name:'two'});
+      // arrElm1.push({id:3,name:'tre'});
+      // arrElm2.push({id:"a",name:123});
+      // arrElm2.push({id:"b",name:456});
+      // arrElm2.push({id:"c",name:789});
+
+      console.log(arrElm2);
+      console.log(arrElm2[0].length);
+      console.log(arrElm1[0]);
+      console.log(arrElm1[0].length);
+
+
+    }
+
+
+
+  </script>
+</head>
+
+<body>
+  <form action="/app">
+  <div>
+    <span class="row">TEXT :</span>
+    <label class="row">
+      <input type="text" />
+    </label>
+  </div>
+  <div>
+    <span>select ABC please :</span>
+    <label class="row"><input type="radio" name="selects" value="1A"/>A</label>
+    <label class="row"><input type="radio" name="selects" value="2B"/>B</label>
+    <label class="row"><input type="radio" name="selects" value="3B.b"/>B.b</label>
+    <label class="row"><input type="radio" name="selects" value="4C"/>C</label>
+  </div>
+  <div>
+    <span>select hoppy please :</span>
+    <label><input type="checkbox" name="hoppy" value="bk"/>book</label>
+    <label><input type="checkbox" name="hoppy" value="sp"/>sleep</label>
+    <label><input type="checkbox" name="hoppy" value="we"/>write</label>
+  </div>
+  <div>
+    <label>edu :
+      <select name="eduShool">
+        <option>01</option>
+        <option>02</option>
+        <option>03</option>
+        <option>456</option>
+      </select>
+    </label>
+  </div>
+  <div>
+    <label>return :
+      <textarea name="message"></textarea>
+    </label>
+  </div>
+  <input type="submit" valeu="OK"/>
+
+</form>
+
+  <table>
+    <!-- table head -->
+    <thead>
+      <tr>
+        <th colspan="6">XXX</th>
+      </tr>
+      <tr>
+        <th>
+          <span style="color:black;">時間</span>
+        </th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td rowspan="2" style="background-color: ghostwhite ">
+          <span style="color:black;">午前</span>
+        </td>
+        <td>朝会</td>
+        <td>朝会</td>
+        <td>朝会</td>
+        <td>朝会</td>
+        <td>朝会</td>
+      </tr>
+      <tr>
+        <td>午前</td>
+        <td>仕事</td>
+        <td>仕事</td>
+        <td>仕事</td>
+        <td>仕事</td>
+      </tr>
+      <tr>
+        <td colspan="6">午後休み</td>
+      </tr>
+      <tr>
+        <td rowspan="3" style="background-color: ghostwhite ">
+          <span style="color:black;">午後</span>
+        </td>
+        <td>仕事</td>
+        <td>仕事</td>
+        <td>仕事</td>
+        <td>仕事</td>
+        <td>仕事</td>
+      </tr>
+      <tr>
+        <td>報告</td>
+        <td>報告</td>
+        <td>報告</td>
+        <td>報告</td>
+        <td>報告</td>
+      </tr>
+      <tr>
+        <td colspan="5">退勤</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td style="background-color: ghostwhite "><span style="color:black;">備考</span></td>
+        <td colspan="5">
+          <ol>
+            <li>1--</li>
+            <li>2^^</li>
+            <li>3\\</li>
+          </ol>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <button onclick="butEvent();">push</button>
+  <button onclick="butEvent2();">push2</button>
+
+  <table>
+    <tbody>
+      <tr>
+        <td name="showTd">1</td>
+        <td name="showTd">2</td>
+        <td name="showTd">3</td>
+        <td name="showTd">4</td>
+        <td name="showTd">5</td>
+        <td name="showTd">6</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>

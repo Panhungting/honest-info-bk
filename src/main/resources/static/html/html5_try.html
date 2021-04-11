@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Html/CSS/jQurey</title>
+  <link href="html5_try.css " rel="stylesheet">
+  <script>
+    
+    function changClass(){
+
+      document.querySelector("button").addEventListener("click",function() {
+        document.querySelector("caption").classList.toggle("captionContr03");
+      });
+    }
+
+    function changClassListener(){
+      alert("OK");
+      document.querySelector("caption").classList.toggle("captionContr02");
+    }
+
+    function toReadonly(i){
+      // document.getElementsByName('bikou')[0].readOnly = "";
+      document.getElementsByName('bikou')[i].toggleAttribute('readOnly');
+    }
+    function toReadonlyNoParam(event){
+      alert(event);
+      // alert(document.getElementsByName("input").values);
+      document.getElementsByName('bikou')[i].toggleAttribute('readOnly');
+    }
+
+    function toReadonlyNoParamAll(thisId){
+      alert(thisId);
+      var checkboxs = document.getElementsByName('checkboxsAll');
+      for(var i = 0 ; i < checkboxs.length ; i++){
+      alert(checkboxs[i]);
+      alert(checkboxs[i].checked);
+        if(checkboxs[i].checked) {
+
+          document.getElementsByName('bikou6')[i].toggleAttribute('readOnly');
+        }
+      }
+    }
+
+    function toReadonlyNoParamAll2(thisId){
+      alert(thisId);
+      var checkboxs = document.getElementsByName('checkboxsAll2');
+      for(var i = 0 ; i < checkboxs.length ; i++){
+      alert(checkboxs[i]);
+      alert(checkboxs[i].checked);
+        if(checkboxs[i].checked) {
+
+          alert('checkboxs['+i+'].checked');
+          document.getElementsByName('bikou8')[i].toggleAttribute('readOnly');
+          document.getElementsByName('bikou8')[i].readOnly = "readOnly";
+        } else {
+
+          alert('checkboxs['+i+'].notChecked');
+          document.getElementsByName('bikou8')[i].readOnly = "";
+        }
+      }
+    }
+
+  </script>
+  
+</head>
+
+<body>
+  <table>
+    <caption class="captionContr"><span>Honest-info</span></caption>
+    <col width="5%">
+    <col width="5%">
+    <col width="8%">
+    <col width="7%">
+    <col width="7%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="32%" text-align="left" valign="middle">
+    
+    <!-- table head -->
+    <thead>
+      <!-- table row -->
+      <tr>
+        <th colspan="8">勤務表</th>
+      </tr>
+    </thead>
+    <!-- table body -->
+    <tbody>
+      <!-- table row -->
+      <tr>
+        <!-- table head -->
+        <th>確認</th>
+        <th>番号</th>
+        <th> 年 </th>
+        <th> 月 </th>
+        <th> 日 </th>
+        <th>出勤</th>
+        <th>退勤</th>
+        <th>備考</th>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input id="checkboxId01" type="checkbox" name="checkboxs"></td>
+        <td>1</td>
+        <td>2020</td>
+        <td>08</td>
+        <td>01</td>
+        <td>09:00</td>
+        <td>19:00</td>
+        <td class="bikou cellReadonly">備考</td>
+      </tr>
+      <!-- byName(i) -->
+      <tr>
+        <!-- table data -->
+        <td><input id="checkboxId02" type="checkbox" name="checkboxs" onclick="toReadonly(0)"></td>
+        <td>2</td>
+        <td>2020</td>
+        <td>08</td>
+        <td>02</td>
+        <td>09:00</td>
+        <td>19:00</td>
+        <td class="bikou">
+           <input type="text" name="bikou" class="read-only-class" >
+        </td>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input id="checkboxId03" type="checkbox" name="checkboxs" onclick="toReadonly(1)"></td>
+        <td>3</td>
+        <td></td>
+        <td>08</td>
+        <td>03</td>
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="bikou cellWrite">
+          <input type="text" name="bikou" class="read-only-class" >
+        </td>
+      </tr>
+      <!-- byName(null) -->
+      <tr>
+        <!-- table data -->
+        <td><input type="checkbox" name="checkboxs" onclick="toReadonlyNoParam(this.Attr('id'))"></td>
+        <td>4</td>
+        <td>2020</td>
+        <td>08</td>
+        <td>02</td>
+        <td>09:00</td>
+        <td>19:00</td>
+        <td class="bikou">
+           <input type="text" name="bikou" class="read-only-class" value="toReadonlyNoParam">
+        </td>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input id="cb05" type="checkbox" name="checkboxs" onclick="toReadonlyNoParam(this.id)"></td>
+        <td>5</td>
+        <td></td>
+        <td>08</td>
+        <td>03</td>
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="bikou cellWrite">
+          <input type="text" name="bikou" class="read-only-class" >
+        </td>
+      </tr>
+      <!-- byName(all) -->
+      <tr>
+        <!-- table data -->
+        <td><input type="checkbox" name="checkboxsAll" onclick="toReadonlyNoParamAll(this.id)"></td>
+        <td>6</td>
+        <td>2020</td>
+        <td>08</td>
+        <td>02</td>
+        <td>09:00</td>
+        <td>19:00</td>
+        <td class="bikou">
+            <input type="text" name="bikou6" class="read-only-class" value="toReadonlyNoParam">
+        </td>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input id="cb07" type="checkbox" name="checkboxsAll" onclick="toReadonlyNoParamAll(this.id)"></td>
+        <td>7</td>
+        <td></td>
+        <td>08</td>
+        <td>03</td>
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="bikou cellWrite">
+          <input type="text" name="bikou6" class="read-only-class" >
+        </td>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input input id="checkboxsAll2-0" type="checkbox" name="checkboxsAll2" onclick="toReadonlyNoParamAll2(this.id)"></td>
+        <td>8</td>
+        <td>2020</td>
+        <td>08</td>
+        <td>02</td>
+        <td>09:00</td>
+        <td>19:00</td>
+        <td class="bikou">
+            <input id="bikou8-id0" type="text" name="bikou8" class="read-only-class" value="toReadonlyNoParam">
+        </td>
+      </tr>
+      <tr>
+        <!-- table data -->
+        <td><input id="checkboxsAll2-1" type="checkbox" name="checkboxsAll2" onclick="toReadonlyNoParamAll2(this.id)"></td>
+        <td>9</td>
+        <td></td>
+        <td>08</td>
+        <td>03</td>
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="bikou cellWrite">
+          <input id="bikou8-id1" type="text" name="bikou8" class="read-only-class" >
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="8">
+          <button name="buttonUpdata" onmousemove="changClass()">確認-更新</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="8">注意</td>
+      </tr>
+      <tr >
+        <td rowspan="2" colspan="8">
+          <p>内容</p> 
+          <br/>
+          <br/>
+          <br/>
+        </td>
+    </tfoot>
+  </table>
+
+  <!-- order list -->
+  <ol>
+
+    <li>出勤</li>
+    <li>退勤</li>
+
+  </ol>
+  <ul>
+    <li>
+      記入
+      <ul>
+        <li>１</li>
+        <li>２</li>
+        <li>３</li>
+      </ul>
+    </li>
+    <li></li>
+  </ul>
+
+</body>
+
+</html>

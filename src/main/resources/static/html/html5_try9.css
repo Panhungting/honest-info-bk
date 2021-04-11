@@ -1,0 +1,43 @@
+form {
+  width: 300px;
+  /* 枠線 */
+  border:dashed 1px blueviolet; 
+  /* 邊間-外距 [margin:上 右 下 左;]*/
+  margin:0 auto;
+  /* 邊-半径-楕円形角 */
+  border-radius: 20px;
+  /* 邊間-內距 */
+  padding:10px;
+}
+label {
+  width: 40px;
+  /* 行の揃え位置 [縦方向の揃え位置 vertical-align]*/  
+  text-align: right;
+  /* 同じライン */
+  display: inline-block;
+}
+.inputSingle {
+  width: 200px;
+  height: 30px;
+  /* 枠線 */
+  border:solid 1px rebeccapurple;
+  /* 邊-半径-楕円形角 */
+  border-radius: 5px;
+}
+textarea {
+  width:200px;
+  height:40px;
+  /* 枠線 */
+  border:solid 1px gray;
+}
+.btnSubmit{
+  width: 120px;
+  height: 30px;
+  font-size: 14px;
+}
+.row{
+  /* 邊間-下 */
+  margin-bottom:5px;
+  /* 内容中央 */
+  text-align: center;
+}

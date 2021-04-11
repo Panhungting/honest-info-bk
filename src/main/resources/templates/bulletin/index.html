@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- BootstrapのCSS読み込み -->
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <style type="text/css">
+    /* div{margin:5px;border:0;padding:0;} */
+    /* テーブル色 */
+    table {
+      width: 700px;
+    }
+
+    table, th, tr, td {
+      border: solid 1px blue;
+      text-align: center;
+    }
+  </style>
+
+  <!-- jQuery読み込み -->
+  <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+
+  <!-- BootstrapのJS読み込み -->
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  <title> bulletin | Honest-info </title>
+</head>
+
+<body>
+
+  <!-- メイン画像 -->
+  <div class="container">
+    <!-- http://localhost:8088/honest-info/images/mainImg.jpg -->
+    <!-- <img th:src="@{/images/mainImg.jpg}" width="1110" height="145" alt=""> -->
+    <img src="../../static/images/mainImg.jpg" width="1110" height="145" alt="">
+  </div>
+
+  <!-- TODO CSSクラス変更 test-->
+  <!-- // style="margin: 1px auto 1px;" -->
+  <div th:if="${employeeName}" class="container">
+    <!-- TODO space style-->
+    <p th:text="${employeeName} + ' Welcome to honest-info web system.'" class="h6"></p>
+  </div>
+  <div th:if!="${employeeName}" style="width:1600x; height:10px;">
+    <!-- TODO space style-->
+  </div>
+
+  <div class="container">
+    <table>
+      <caption><span>Honest-info 掲載</span></caption>
+      <col width="20%">
+      <col width="20%">
+      <col width="30%">
+      <col width="20%">
+      <col width="10%">
+      <!-- <col width="6%"> -->
+      <thead>
+        <tr>
+          <th colspan="5">
+            レビュー
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>カテゴリー</th>
+          <th>タイトル</th>
+          <th>概要</th>
+          <th>掲載日</th>
+          <th>削除</th>
+        </tr>
+        <tr>
+          <td>例：Ｋ  </td>
+          <td>例：Ｔ  </td>
+          <td>例：Ｋ  </td>
+          <td>例：Ｋ  </td>
+          <td>削除</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+
+
+</body>
+
+
+</html>

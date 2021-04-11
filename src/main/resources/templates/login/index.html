@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BootstrapのCSS読み込み -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <title>demo | Honest-info App</title>
+
+    <!-- //jQuery読み込み -->
+    <script>
+
+        // 初期化、見えない状態
+        $(function(){
+            $("#loginId-forget-a").slideUp();
+            $("#password-forget-a").slideUp();
+        });
+
+        // ログインテキスト色変化 分解で作成
+        $(document).ready(selectorAndevent);
+        
+        // select event 指定する
+        function selectorAndevent() {
+
+            // ユーザーID忘れを見る
+            $("#loginId").mouseenter(function(){
+                    $("#loginId-forget-a").css("color","#87bbee");
+                    $("#loginId-forget-a").slideDown(500);
+            })
+
+            // ユーザーID忘を隠す
+            $("#loginBlack").mouseleave(function(){
+                $("#loginId-forget-a").slideUp(500);
+            })
+
+            // 押す時、青に変更
+            $("#loginId").click(effectClickColor);
+            // 放す時、白に戻す
+            $("#loginId").blur(effectBlurColor);
+        }
+
+        // 押す時、青に変更
+        function effectClickColor() {
+            $("#loginId").css("background-color","#E0FFFF");
+        }
+
+        // 放す時、白に戻す
+        function effectBlurColor() {
+            $("#loginId").css("background-color","#FFFFFF");
+            
+            var loginId = $("#loginId").val();
+            var data = {
+                "loginId":loginId,
+                "password":"have no password"
+            }
+
+            // ajaxの値チェック
+            console.log(data);
+            // バックエンドから値を渡す
+            $.ajax({
+                url: "/honest-info/login/empty/check/loginId", // URLを指定
+                type: "GET", // GET,POSTなどを指定
+                data: data, //傳送給後端的資料
+                dataType: "json",   //response的資料格式,此处不能省略
+                contentType: "application/json; charset=utf-8",//此处不能省略
+            }).done(checkSuccess);
+        }
+
+        function checkSuccess(data) {
+            console.log("bookListSuccess");
+            console.log(data);
+            if (data==0) {
+                console.log("employee is not exist");
+                var loginId = $("#loginId").val();
+                $("#msgDiv").css("display","");
+                $("#msgP").html(loginId + "存在していません");
+            } else {
+                var loginId = $("#loginId").val();
+                $("#msgDiv").css("display","");
+                $("#msgP").html(loginId + "存在しています");
+            }
+            console.log("data-ok");
+        }
+        
+        // パスワードテキスト色変化 まとめで作成
+        $(document).ready(function() {
+
+            // パスワード忘れを見る
+            $("#password").mouseenter(function(){
+                    $("#password-forget-a").css("color","#87bbee");
+                    $("#password-forget-a").slideDown(500);
+            })
+
+            // パスワード忘を隠す
+            $("#loginBlack").mouseleave(function(){
+                $("#password-forget-a").slideUp(500);
+            })
+            // 押す時、ピンクに変更
+            $("#password").click(function() {
+                $("#password").css("background-color","#FFC0CB");
+            })
+            // 放す時、白に戻す
+            $("#password").blur(function() {
+                $("#password").css("background-color","#FFFFFF");
+
+                // 入力値チェック
+                var loginId = $("#loginId").val();
+                var password = $("#password").val();
+                // JSONに変換
+                var data = {
+                    "loginId":$("#loginId").val(),
+                    "password":$("#password").val()
+                }
+
+                // ajax値チェック
+                console.log(data);
+                // バックエンドに値を渡す
+                $.ajax({
+                    url: "/honest-info/login/empty/check/password", // URLを指定
+                    type: "POST", // GET,POSTなどを指定
+                    data: JSON.stringify(data),//json序列化
+                    dataType: "json",   //response的資料格式,此处不能省略
+                    contentType: "application/json; charset=utf-8",//此处不能省略
+                }).done(checkSuccess);
+            })
+        })
+
+        // 入力チェック
+        $(document).ready(function() {
+
+            // select event 指定する
+            $("#loginButten").click(function(){
+                var loginId = $("#loginId").val();
+                var password = $("#password").val();
+
+                // 入力チェック失敗ならSUBMITしない
+                if(String(loginId).length == 0 || String(password).length == 0) {
+
+                    alert("パスワード或いはログインID入力してください。");
+                    return false;
+                } else {
+
+                    // // 入力内容表示
+                    // var contentStr = "入力しました。\n"
+                    //     + "ログインID：" + loginId + "\n"
+                    //     + "パスワード桁数：" + String(password).length;
+
+                    // // confirm選択
+                    // if(!confirm(contentStr)){
+                    //     // キャンセルの時の処理
+                    //     return false;
+                    // }else{
+                    //     // OKの時の処理 
+                    //     return;
+                    // }
+                }
+            })
+        })
+
+    </script> 
+</head>
+<body>
+    <br>
+    <!-- メイン画像 -->
+    <div id="mainBanner" class="container">
+        <!-- http://localhost:8088/honest-info/images/mainImg.jpg -->
+        <img th:src="@{/images/mainImg.jpg}" width="1110" height="268" alt="">
+    </div>
+    <br>
+
+    <!-- ログインエラーメッセージ -->
+    <div id="msgDiv" class="alert alert-warning" role="alert" style="display:none">
+        <p id="msgP" ></p>
+    </div>
+
+    <div class="container">
+        <form th:object="${loginForm}" th:action="@{/login/check}" method="post">
+            <div class="row justify-content-center">
+                <div id="loginBlack" class="card text-white bg-dark mb-3" style="width: 33rem;">
+                    <div class="card-body">
+                        <h5 class="text-center">ログイン情報を入力してください</h5>
+                        <br>
+                        <!-- 变量表达式和星号表达有什么区别吗？ -->
+                        <!-- https://www.cnblogs.com/ityouknow/p/5833560.html -->
+                        <!-- 父标签的值，如下： -->
+                        <!-- <div th:object="${session.user}">
+                            <p>Name: <span th:text="*{firstName}">Sebastian</span>.</p>
+                            <p>Surname: <span th:text="*{lastName}">Pepper</span>.</p>
+                            <p>Nationality: <span th:text="*{nationality}">Saturn</span>.</p>
+                          </div> -->
+                        <!-- 这是完全等价于： -->
+                        <!-- <div th:object="${session.user}">
+                            <p>Name: <span th:text="${session.user.firstName}">Sebastian</span>.</p>
+                            <p>Surname: <span th:text="${session.user.lastName}">Pepper</span>.</p>
+                            <p>Nationality: <span th:text="${session.user.nationality}">Saturn</span>.</p>
+                          </div> -->
+                        <!-- ユーザーID行 -->
+                        <div class="form-group row">
+                            <label for="loginId" class="col-sm-3 col-form-label">ユーザーID</label>
+                            <div class="col-sm-9 row">
+                                <input id="loginId" class="form-control" style="width:225px;" th:field="*{loginId}" value="pan">
+
+                                <!-- 後ろ提示 -->
+                                <div id="loginId-forget" style="width:120px; height:30px; float:left; margin:4px">
+                                    <a id="loginId-forget-a" href="https://honest-info.co.jp/index.html" style="color:#343a40;">ユーザーID忘れ</a>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <!-- パスワード行 -->
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-3 col-form-label">パスワード</label>
+                            <div class="col-sm-9 row">
+                                <!-- TODO PWの入力内容隠す -->
+                                <input id="password" class="form-control" style="width:225px;" th:field="*{password}">
+
+                                <!-- 後ろ提示 -->
+                                <div id="password-forget" style="width:115px; height:30px; float:left; margin:4px">
+                                    <a id="password-forget-a" href="https://honest-info.co.jp/index.html" style="color:#343a40;">パスワード忘れ</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button id="loginButten" type="submit" class="btn btn-light">ログイン</button>
+                            <!-- TODO go to history page -->
+                            <a href="https://honest-info.co.jp/index.html" class="btn btn-light">　戻る　</a>
+                        </p>
+                    </div>
+                </div>        
+            </div>
+        </form>    
+    </div>
+</body>
+</html> 

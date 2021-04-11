@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BootstrapのCSS読み込み -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <title>demo | Honest-info App</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">これはデモです！</h1>
+        <br>
+
+        <!-- modelに、msgが定義されている場合のみ表示 -->
+        <div th:if="${msg}" class="alert alert-success" role="alert">
+            <!-- modelから名前が一致する値で置き換わる -->
+            <p th:text="${msg}"></p>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <h4>書籍情報一覧</h4>
+            </div>
+            <div class="col-4">
+                <!-- th:hrefは、遷移先のURLを指定 -->
+                <p class="text-right"><a th:href="@{/demo/add}" class="btn btn-dark">新規登録</a></p>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col-sm-1">No</th>
+                    <th scope="col-sm-2">タイトル</th>
+                    <th scope="col-sm-1">価格</th>
+                    <th scope="col-sm-8">概要</th>
+                    <th></th>
+                </tr>    
+            </thead>
+            <tbody>
+                <!-- 繰り返し、ステータス変数(status)には、現在のループの状態に関する情報が格納される -->
+                <tr th:each="book, status : ${bookList}">
+                    <th th:text="${status.count}"></th>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.price}"></td>
+                    <td th:text="${book.summary}"></td>
+                    <td class="text-right">
+                        <!-- パスパラメータとして、bookIdを渡している -->
+                        <a th:href="@{/demo/{bookId}/edit(bookId=${book.bookId})}" class="btn btn-primary btn-sm">編集</a>
+                        <a th:href="@{/demo/{bookId}/delete(bookId=${book.bookId})}" class="btn btn-primary btn-sm">削除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

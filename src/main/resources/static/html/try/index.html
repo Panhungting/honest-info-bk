@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Html/CSS/jQurey</title>
+  <!-- jQuery読み込み -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style type="text/css">
+
+  /* テーブル色 */
+  table,th,tr,td {
+    border: solid 1px blue;
+    text-align: center;
+  }
+  table {
+    width: 700px;
+  }
+
+  /* テーブル行色 */
+  .tr-readyOney {
+    background-color: gray;
+  }
+  .tr-write {
+    text-align: left;
+    background-color: #fcf393;
+  }
+
+  /* text設定 */
+  input[type="text"] {
+    /* 枠表示されない */
+    border-style:none;
+    /* クリックときも枠表示されない */
+    outline:none;
+    /* 自動縮放寬度佔滿容器 */
+    width: 97%;
+    height: 100%;
+  }
+  /* text-readOnlyに色設定 */
+  input:read-only.read-only {
+    /* input:read-only.read-onlyにスペースがない */
+    background-color: gray
+  }
+
+  /* ボタン設定 */
+  button {
+    width: 100px;
+    height: 30px
+  }
+
+  ol {
+    /* 修正便利のため範囲表示 */
+    /* border: dashed 1px blue; */
+    text-align: left;
+    /* 邊間-外距 [margin:上 右 下 左;]*/
+    margin:5px 0 5px 0;
+  }
+  
+  </style>
+
+  <script type="text/javascript">
+    
+    // TODO 1.当月を取得（年	月	日	曜日）
+    var a = "1";
+    var b = "2";
+
+    // java scriptの書き方
+    function toUpdata(thisId){
+
+      // var checkboxs = document.getElementsByName('checkboxs');
+      // for(var i = 0 ; i < checkboxs.length ; i++){
+      // // チェック判断
+      //   if(checkboxs[i].checked) {
+
+      //     // 参考-交換
+      //     // document.getElementsByName('bikou')[i].toggleAttribute('readOnly');
+      //     // 書ける
+      //     document.getElementsByName('bikous')[i].readOnly = "";
+      //     document.getElementsByName('bikous')[i].disabled = "";
+      //     document.getElementsByName('rowChange')[i].classList.remove("tr-readyOney");
+      //     document.getElementsByName('rowChange')[i].classList.add("tr-write");
+      //     document.getElementsByName('bikous')[i].classList.add("tr-write");
+      //   } else {
+
+      //     // 金色の書け
+      //     if (document.getElementsByName('rowChange')[i].classList.value === "tr-write") {
+
+      //       // 書かない
+      //       document.getElementsByName('bikous')[i].disabled = "disabled";
+      //       document.getElementsByName('rowChange')[i].classList.remove("tr-write");
+      //       document.getElementsByName('bikous')[i].classList.remove("tr-write");
+      //     }
+      //   }
+      // }
+    }
+
+    // jQueryの書き方
+    $(document).ready(function(){
+      $("input[name='checkboxs']").click(function(){
+
+        var checkboxs = $("input[name='checkboxs']");
+        for(var i = 0 ; i < checkboxs.length ; i++){
+        // チェック判断
+          if(checkboxs[i].checked) {
+
+            // 書ける
+            $("input[name='bikous']")[i].readOnly = "";
+            $("input[name='bikous']")[i].disabled = "";
+            $("tr[name='rowChange']")[i].classList.remove("tr-readyOney");
+            $("tr[name='rowChange']")[i].classList.add("tr-write");
+            $("input[name='bikous']")[i].classList.add("tr-write");
+          } else {
+
+            // 金色の書け
+            if (document.getElementsByName('rowChange')[i].classList.value === "tr-write") {
+
+              // 書かない
+              // document.getElementsByName('bikous')[i].disabled = "disabled";
+              document.getElementsByName('rowChange')[i].classList.remove("tr-write");
+              document.getElementsByName('bikous')[i].classList.remove("tr-write");
+            }
+          }
+        }
+      })
+    })
+
+    // jQueryの書き方、すべで選択した
+    $(document).ready(function(){
+      // var checkboxs = $("input[name='checkboxs']");
+      // $.each(checkboxs,function(index,item){
+      //   console.log(index,item)
+      //   item.checked = true;
+      // })
+    })
+
+    var obj1 = {
+      a: 1,
+      b: { f: { g: 1 } },
+      c: [1, 2, 3]
+    };
+
+    var obj2 = $.extend(true, {}, obj1);
+    obj2.b.f = 998;
+    obj2.b.f.g = 999;
+    console.log(obj1); 
+    console.log(obj2.b.f); 
+    console.log(obj2); 
+    console.log(obj1.b.f === obj2.b.f); 
+
+    var obj22 = obj2['b']['f']['g'] 
+    console.log('obj2',obj22)
+
+  </script>
+</head>
+
+<body>
+  <table>
+    <caption ><span>Honest-info</span></caption>
+    <col width="5%">
+    <col width="5%">
+    <col width="8%">
+    <col width="6%">
+    <col width="6%">
+    <col width="6%">
+    <col width="11%">
+    <col width="11%">
+    <col width="32%" text-align="left" valign="middle">
+    
+    <!-- table head -->
+    <thead>
+      <!-- table row -->
+      <tr>
+        <th colspan="9">勤務表</th>
+      </tr>
+    </thead>
+    <!-- table body -->
+    <tbody>
+      <!-- table row -->
+      <tr>
+        <!-- table head -->
+        <th>確認</th>
+        <th>番号</th>
+        <th> 年 </th>
+        <th> 月 </th>
+        <th> 日 </th>
+        <th>曜日</th>
+        <th>出勤</th>
+        <th>退勤</th>
+        <th>備考</th>
+      </tr>
+      <tr id="tr-1" name="rowChange" class="tr-readyOney">
+        <td>
+          <input id="checkboxs-1" name="checkboxs" type="checkbox" 
+            onclick="toUpdata(this.id)">
+        </td>
+        <td>1</td>
+        <td></td>
+        <td>08</td>
+        <td>01</td>
+        <td>土</td>
+        <!-- TODO 修正してください -->
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="">
+          <input id="bikou-1" name="bikous" type="text" 
+            class="read-only" value="前保存したデータ" readonly>
+        </td>
+      </tr>
+      <tr id="tr-2" name="rowChange" class="tr-write">
+        <td>
+          <input id="checkboxs-2" name="checkboxs" type="checkbox" 
+            onclick="toUpdata(this.id)" checked>
+        </td>
+        <td>2</td>
+        <td></td>
+        <td>08</td>
+        <td>02</td>
+        <td>日</td>
+        <!-- TODO 修正してください -->
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="">
+          <input id="bikou-2" name="bikous" type="text" 
+            class="read-only tr-write" value="入力できる、チェックしないと更新しない">
+        </td>
+      </tr>
+      <tr id="tr-3" name="rowChange" class="tr-write">
+        <!-- table data -->
+        <td>
+          <input id="checkboxs-3" type="checkbox" name="checkboxs" 
+          onclick="toUpdata(this.id)" checked>
+        </td>
+        <td>3</td>
+        <td></td>
+        <td>08</td>
+        <td>03</td>
+        <td>月</td>
+        <td>09:00</td>
+        <td>19:00 </td>
+        <td class="">
+          <input id="bikou-3" name="bikous" type="text" 
+            class="read-only tr-write" value="更新しておく、チェックしないと更新しない">
+        </td>
+      </tr>
+      <tr id="tr-4" name="rowChange" class="">
+        <td>
+          <input id="checkboxs-4" type="checkbox" name="checkboxs" 
+          onclick="toUpdata(this.id)">
+        </td>
+        <td>4</td>
+        <td></td>
+        <td>08</td>
+        <td>04</td>
+        <td>火</td>
+        <td></td>
+        <td></td>
+        <td id="td-4" class="">
+          <input id="bikou-4" name="bikous" type="text"
+           class="read-only" value="Defult 何も入力してない状態" >
+        </td>
+      </tr>
+      <tr id="tr-5" name="rowChange" class="">
+        <td>
+          <input id="checkboxs-5" type="checkbox" name="checkboxs" 
+            onclick="toUpdata(this.id)">
+        </td>
+        <td>5</td>
+        <td></td>
+        <td>08</td>
+        <td>05</td>
+        <td>水</td>
+        <td></td>
+        <td></td>
+        <td id="td-5"  class="">
+          <input id="bikou-5" type="text" name="bikous" 
+            class="read-only" value="試し" >
+        </td>
+      </tr>
+      <tr id="tr-6" name="rowChange" class="">
+        <td>
+          <input id="checkboxs-6" type="checkbox" name="checkboxs" 
+            onclick="toUpdata(this.id)">
+        </td>
+        <td>6</td>
+        <td></td>
+        <td>08</td>
+        <td>06</td>
+        <td>木</td>
+        <td></td>
+        <td></td>
+        <td id="td-6"  class="">
+          <input id="bikou-6" type="text" name="bikous" 
+            class="read-only" value="試し" >
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="9">
+          <button name="buttonUpdata" onclick="" >確認-更新</button>
+        </td>
+      </tr>
+      <tr >
+        <td rowspan="2" colspan="9">
+          <div>
+            説明
+            <ol>
+              <li>灰色は前保存したデータ。</li>
+              <li>チェックしたのは、金色になった、更新をできる。</li>
+              <li>まだ入力しないのは、白色を表示している。</li>
+            </ol>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+
+</html>

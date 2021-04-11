@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BootstrapのCSS読み込み -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <title>demo | Honest-info App</title>
+    <script> // ここに、JavaScript/jQueryコードを記述
+        // 初期化
+        $(function() {
+            // clickイベント登録
+            $("#get-book-list").click(getBookList);
+        });
+
+        function getBookList() {
+            console.log("getBookList");
+            // ajaxで一覧取得
+            $.ajax({
+                url: "/honest-info/api/v1/book/index", // URLを指定
+                type: "GET", // GET,POSTなどを指定
+            }).done(bookListSuccess);
+        }
+        
+        // 通信成功時のコールバック処理
+        function bookListSuccess(data) {
+            console.log("bookListSuccess");
+            // 取得結果を元に、tbodyの中身を置き換える
+            console.log(data);
+            for (let i=0; i < data.length; i++) {
+                console.log( data[i].title );
+                $('tbody').append(
+                        `<tr>
+                            <th>${i+1}</th>
+                            <td>${data[i].title}</td>
+                            <td>${data[i].price}</td>
+                            <td>${data[i].summary}</td>
+                        </tr>`
+                );
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">これはデモです！</h1>
+        <br>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <h4>書籍情報一覧</h4>
+            </div>
+            <div class="col-4">
+                <p class="text-right"><span class="btn btn-dark" id="get-book-list">一覧取得</span></p>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col-sm-1">ID</th>
+                    <th scope="col-sm-2">タイトル</th>
+                    <th scope="col-sm-1">価格</th>
+                    <th scope="col-sm-8">概要</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

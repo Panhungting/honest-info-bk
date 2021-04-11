@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- BootstrapのCSS読み込み -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <title>demo | Honest-info App</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">これはデモです！</h1>
+        <br>
+
+        <form th:object="${demoForm}" th:action="@{/demo/{bookId}(bookId=${book.bookId})}" th:method="put"> <!-- th:methodは、putを指定 -->  
+            <div class="row justify-content-center">
+                <div class="card text-white bg-dark mb-3" style="width: 25rem;">
+                    <div class="card-body">
+                        <h5 class="text-center">書籍情報を入力してください</h5>
+                        <br>
+                        <div class="form-group row">
+                            <!-- th:fieldは、フォームクラスのメンバー変数名と一致 -->
+                            <label for="title" class="col-sm-3 col-form-label">タイトル</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="${book.title}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="price" class="col-sm-3 col-form-label">価格</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="${book.price}">                                    
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="summary" class="col-sm-3 col-form-label">概要</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" th:field="${book.summary}">
+                            </div>
+                        </div>
+                        <p class="text-center">
+                            <button type="submit" class="btn btn-light">保存</button>
+                            <a th:href="@{/demo/index}" class="btn btn-light">キャンセル</a>    
+                        </p>
+                    </div>
+                </div>        
+            </div>
+        </form>    
+    </div>
+</body>
+</html> 
